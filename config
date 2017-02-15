@@ -17,6 +17,9 @@ set $mod Mod4
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango:DejaVu Sans Mono 8
 
+# per default hide the crappy title bars
+new_window 1pixel
+
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -30,7 +33,7 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
-bindsym $mod+l exec lock
+bindsym F12 exec lock
 
 # kill focused window
 bindsym $mod+q kill
@@ -48,14 +51,24 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right 
+
 # move focused window
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+b split h 
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -77,13 +90,19 @@ bindsym $mod+Shift+d focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
+# bindsym $mod+Shift+S scratchpad
+
 # focus the child container
 #bindsym $mod+d focus child
 
+set $ws_code "[1] code"
+set $ws_www "[2] www"
+set $ws_term "[3] term"
+
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
+bindsym $mod+1 workspace $ws_code
+bindsym $mod+2 workspace $ws_www
+bindsym $mod+3 workspace $ws_term
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
@@ -92,10 +111,24 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+# Advanced switch mode
+set $mode_switch_workspace Select workspace (1), (2), (3)
+mode "$mode_switch_workspace" {
+    bindsym 1 workspace 1, mode "default"
+    bindsym 2 workspace 2, mode "default"
+    bindsym 3 workspace 3, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+x mode "$mode_switch_workspace"
+
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+1 move container to workspace $ws_code 
+bindsym $mod+Shift+2 move container to workspace $ws_www
+bindsym $mod+Shift+3 move container to workspace $ws_term
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
@@ -104,10 +137,26 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+# Advanced move Mode
+set $mode_move_workspace Move to workspace (1), (2), (3)
+mode "$mode_move_workspace" {
+    bindsym 1 move container to workspace 1, mode "default"
+    bindsym 2 move container to workspace 2, mode "default"
+    bindsym 3 move container to workspace 3, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+x mode "$mode_move_workspace"
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -123,6 +172,11 @@ mode "resize" {
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
+
+	bindsym h resize shrink width 10px or 10ppt
+	bindsym j resize grow height 10px or 10ppt
+	bindsym k resize shrink height 10px or 10ppt
+	bindsym l resize grow width 10px or 10ppt 
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -143,11 +197,28 @@ bar {
 		# Type             border  background font
 		focused_workspace  #008fff #007fff #ffffff
 		active_workspace   #333333 #5f676a #ffffff
-		inactive_workspace #333333 #222222 #888888
-		urgent_workspace   #aa0000 #990000 #ffffff
+		inactive_workspace #333333 #003385 #cccccc
+		urgent_workspace   #aa0000 #aa0000 #ffffff
 	}
+
+	position top
 
         status_command i3status -c ~/.i3/i3status.conf
 }
 
 exec --no-startup-id feh --randomize --bg-fill ~/Bilder/Wallpaper/*
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Pause mode "$mode_system"
