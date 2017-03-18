@@ -203,7 +203,8 @@ bar {
 
 	position top
 
-        status_command i3status -c ~/.i3/i3status.conf
+        #status_command i3status -c ~/.i3/i3status.conf
+        status_command ~/.i3/conky
 }
 
 exec --no-startup-id feh --randomize --bg-fill ~/Bilder/Wallpaper/*

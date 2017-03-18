@@ -1,0 +1,62 @@
+	
+
+    background        no
+    out_to_console    yes
+    out_to_x          no
+    update_interval   2
+    total_run_times   0
+    short_units       yes
+    pad_percents      3
+     
+    override_utf8_locale yes
+    if_up_strictness address
+     
+    TEXT
+	[ 
+	
+	${if_match "${exec cat /tmp/.update_count}" > "0"}
+	        {"full_text": "   ${exec cat /tmp/.update_count} ","color":"\#9C9C9C"},
+	$endif
+
+	${if_up wlan0}
+	        	${if_match "${wireless_link_qual wlan0}" < "35"}
+			${if_match "${wireless_link_qual wlan0}" < "25"}
+				${if_match "${wireless_link_qual wlan0}" < "15"}
+					{"full_text": "  ${wireless_essid wlan0} [${wireless_link_qual wlan0}%]","color":"\#FF0000"},
+				$else
+					{"full_text": "  ${wireless_essid wlan0} [${wireless_link_qual wlan0}%]","color":"\#FFA500"},
+				$endif
+			$else
+				{"full_text": "  ${wireless_essid wlan0} [${wireless_link_qual wlan0}%]","color":"\#EEEE00"},
+			$endif	
+		$else
+                	{"full_text": "  ${wireless_essid wlan0} [${wireless_link_qual wlan0}%]","color":"\#9C9C9C"},
+		$endif
+		{"full_text": "  ${exec ip -6 addr | grep 'inet6 2' | grep 'scope global temporary dynamic' | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d'} / ${addr wlan0}","color": "\#9C9C9C"},
+                {"full_text": "  [${downspeed }] ", "color":"\#9C9C9C"},
+                {"full_text": "  [${upspeed wlan0}] ", "color":"\#9C9C9C"},
+
+	$endif
+	${if_up eth0}
+	        {"full_text": "  ${exec ip -6 addr | grep 'inet6 2' | grep 'scope global temporary dynamic' | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d'} / ${addr eth0} ","color": "\#9C9C9C"},
+		{"full_text": "  [${downspeed eth0}] ", "color":"\#9C9C9C"},
+		{"full_text": "  [${upspeed eth0}] ", "color":"\#9C9C9C"},
+                {"full_text": "  eth0 ","color":"\#9C9C9C"},
+	$endif	
+        {"full_text": "  [$cpu%] ", "color": "\#9C9C9C"}, 
+        {"full_text": "  [$membar] ", "color":"\#9C9C9C"},
+	${if_existing /sys/class/power_supply/BAT0}	
+		${if_match "$battery_percent" < "20"}
+	        	${if_match "$battery_percent" < "10"}
+				{"full_text": "  [$battery_percent%] Verbleibend: $battery_time","color":"\#FF0000"},
+			$else	
+				{"full_text": "  [$battery_percent%] ","color":"\#FFa500"},
+       			$endif 
+		$else 
+			{"full_text": "  [$battery_percent%] ","color":"\#9C9C9C"},
+		$endif
+	$else
+		{"full_text": "  AC only","color":"\#9C9C9C"},
+	$endif
+	{"full_text": "  ${time %a %d %b} ${time %H:%M} ", "color":"\#9C9C9C"}
+	],
