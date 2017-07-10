@@ -20,6 +20,9 @@ font pango:DejaVu Sans Mono 8
 # per default hide the crappy title bars
 new_window 1pixel
 
+# force i3 to us layout
+exec_always --no-startup-id "/usr/bin/setxkbmap us"
+
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
