@@ -28,23 +28,25 @@
 				{"full_text": "  ${wireless_essid wlp4s0} [${wireless_link_qual wlp4s0}%]","color":"\#EEEE00"},
 			$endif	
 		$else
-       	{"full_text": "  ${wireless_essid wlp4s0} [${wireless_link_qual wlp4s0}%]","color":"\#9C9C9C"},
+       	{"full_text": "  ${wireless_essid wlp4s0} [${wireless_link_qual wlp4s0}%]","color":"\#4EDEE6"},
 		$endif
 
-		{"full_text": "  ${exec ip -6 addr | grep 'inet6 2' | grep 'scope global temporary dynamic' | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d'} / ${addr wlp4s0}","color": "\#9C9C9C"},
-    {"full_text": "  [${downspeed }] ", "color":"\#9C9C9C"},
-    {"full_text": "  [${upspeed wlp4s0}] ", "color":"\#9C9C9C"},
+		{"full_text": "${exec ip -6 addr | grep 'inet6 2' | grep 'scope global temporary dynamic' | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d'}","color": "\#3EAFB5"},
+		{"full_text": "${addr wlp4s0}","color": "\#3EAFB5"},
+    {"full_text": "  [${downspeed }] ", "color":"\#5F9432"},
+    {"full_text": "  [${upspeed wlp4s0}] ", "color":"\#5F9432"},
 
 	$endif
 	${if_up enp0s25}
-    {"full_text": "  ${exec ip -6 addr | grep 'inet6 2' | grep 'scope global temporary dynamic' | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d'} / ${addr enp0s25} ","color": "\#9C9C9C"},
-		{"full_text": "  [${downspeed enp0s25}] ", "color":"\#9C9C9C"},
-		{"full_text": "  [${upspeed enp0s25}] ", "color":"\#9C9C9C"},
-    {"full_text": "  enp0s25 ","color":"\#9C9C9C"},
+    {"full_text": "  enp0s25 ","color":"\#4EDEE6"},
+    {"full_text": "${exec ip -6 addr | grep 'inet6 2' | grep 'scope global temporary dynamic' | sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d'}","color": "\#3EAFB5"},
+    {"full_text": "${addr enp0s25}","color": "\#3EAFB5"},
+		{"full_text": "  [${downspeed enp0s25}] ", "color":"\#5F9432"},
+		{"full_text": "  [${upspeed enp0s25}] ", "color":"\#5F9432"},
 	$endif	
 
-    {"full_text": "  [$cpu%] ", "color": "\#D4552A"}, 
-    {"full_text": "  [$membar] ", "color":"\#54D42A"},
+    {"full_text": "  [$cpu%] ", "color": "\#D68931"}, 
+    {"full_text": "  [$membar] ", "color":"\#D68931"},
 
 	${if_existing /sys/class/power_supply/BAT0}	
 		${if_match "$battery_percent" < "20"}
