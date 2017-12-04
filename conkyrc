@@ -45,7 +45,7 @@
 		{"full_text": "  [${upspeed enp0s25}] ", "color":"\#5F9432"},
 	$endif	
 
-    {"full_text": "  [$cpu%] ", "color": "\#D68931"}, 
+    {"full_text": "  [$cpu%] [${exec sensors | grep Physical | awk '{print $4}'}] ", "color": "\#D68931"}, 
     {"full_text": "  [$membar] ", "color":"\#D68931"},
 
 	${if_existing /sys/class/power_supply/BAT0}	
