@@ -42,7 +42,7 @@ bindsym $mod+z exec lock
 exec --no-startup-id xautolock -time 10 -locker lock &
 
 # set background
-exec_always --no-startup-id "feh --bg-fill '/home/cedi/Bilder/Wallpaper/270l4bt37bmz.jpg'"
+exec_always --no-startup-id "feh --bg-fill '/home/cedi/.config/i3/wallpaper/1440p-wallpapers-mobile-phones-277.jpg'"
 
 # kill focused window
 bindsym $mod+q kill
