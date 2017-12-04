@@ -197,8 +197,10 @@ bar {
 	position top
 
         #status_command i3status -c ~/.i3/i3status.conf
-        status_command ~/.i3/conky
+        status_command ~/.config/i3/conky
 }
+
+exec --no-startup-id feh --bg-fill $HOME/Wallpaper/1440p-wallpapers-mobile-phones-277.jpg
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
