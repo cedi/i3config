@@ -10,6 +10,8 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $alt Mod1
+set $altgr Mod5
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -35,14 +37,14 @@ exec_always --no-startup-id "/usr/bin/setxkbmap us"
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec tilix 
+bindsym $mod+Return exec tilix
 
 # set lock
 bindsym $mod+z exec lock
 exec --no-startup-id xautolock -time 10 -locker lock &
 
 # set background
-exec_always --no-startup-id "feh --bg-fill '/home/cedi/.config/i3/wallpaper/1440p-wallpapers-mobile-phones-277.jpg'"
+exec_always --no-startup-id "feh --bg-scale '/home/cedi/.config/i3/wallpaper/4k-Abstract-HD-Photo-Wallpapers.jpg'"
 
 # kill focused window
 bindsym $mod+q kill
@@ -60,11 +62,11 @@ bindsym $mod+d exec dmenu_run
 #bindsym $mod+Right focus right
 bindsym $mod+space exec rofi-run
 
-
+# move focus to windows
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
-bindsym $mod+l focus right 
+bindsym $mod+l focus right
 
 # move focused window
 #bindsym $mod+Shift+Left move left
@@ -77,8 +79,15 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
+# move whole container
+bindsym $mod+$alt+h move workspace to output left
+bindsym $mod+$alt+j move workspace to output down
+bindsym $mod+$alt+k move workspace to output up
+bindsym $mod+$alt+l move workspace to output right
+
+
 # split in horizontal orientation
-bindsym $mod+b split h 
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -113,36 +122,36 @@ bindsym $mod+a focus parent
 #set $ws_term "5: \uf120"
 #set $ws_social "6: \uf086"
 
-set $ws_util "1: utils"
-set $ws_www "2: www"
-set $ws_code "3: code"
-set $ws_term "4: term"
-set $ws_rdp "5: rdp"
-set $ws_test "10: test"
+#set $ws_util "1"
+#set $ws_www "2"
+#set $ws_code "3: code"
+#set $ws_term "4: term"
+#set $ws_rdp "5: rdp"
+#set $ws_test "10: test"
 
 # switch to workspace
-bindsym $mod+1 workspace $ws_util
-bindsym $mod+2 workspace $ws_www
-bindsym $mod+3 workspace $ws_code
-bindsym $mod+4 workspace $ws_term
-bindsym $mod+5 workspace $ws_rdp
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace $ws_test
+bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws_util
-bindsym $mod+Shift+2 move container to workspace $ws_www
-bindsym $mod+Shift+3 move container to workspace $ws_code
-bindsym $mod+Shift+4 move container to workspace $ws_term
-bindsym $mod+Shift+5 move container to workspace $ws_rdp
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace $ws_test
+bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -169,7 +178,7 @@ mode "resize" {
 	bindsym h resize shrink width 10px or 10ppt
 	bindsym j resize grow height 10px or 10ppt
 	bindsym k resize shrink height 10px or 10ppt
-	bindsym l resize grow width 10px or 10ppt 
+	bindsym l resize grow width 10px or 10ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
