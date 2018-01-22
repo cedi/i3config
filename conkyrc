@@ -5,13 +5,13 @@
     total_run_times   0
     short_units       yes
     pad_percents      3
-     
+
     override_utf8_locale yes
     if_up_strictness address
-     
+
     TEXT
-	[ 
-	
+	[
+
 	${if_match "${exec cat /tmp/.update_count}" > "0"}
 	  {"full_text": "   ${exec cat /tmp/.update_count} ","color":"\#9C9C9C"},
 	$endif
@@ -26,7 +26,7 @@
 				$endif
 			$else
 				{"full_text": "  ${wireless_essid wlp4s0} [${wireless_link_qual wlp4s0}%]","color":"\#EEEE00"},
-			$endif	
+			$endif
 		$else
        	{"full_text": "  ${wireless_essid wlp4s0} [${wireless_link_qual wlp4s0}%]","color":"\#4EDEE6"},
 		$endif
@@ -43,25 +43,32 @@
     {"full_text": "${addr enp0s25}","color": "\#3EAFB5"},
 		{"full_text": "  [${downspeed enp0s25}] ", "color":"\#5F9432"},
 		{"full_text": "  [${upspeed enp0s25}] ", "color":"\#5F9432"},
-	$endif	
-
-    {"full_text": "  [$cpu%] [${exec sensors | grep Physical | awk '{print $4}'}] ", "color": "\#D68931"}, 
-    {"full_text": "  [$membar] ", "color":"\#D68931"},
-
-	${if_existing /sys/class/power_supply/BAT0}	
-		${if_match "$battery_percent" < "20"}
-     	${if_match "$battery_percent" < "10"}
-				{"full_text": "  [$battery_percent%] ($battery_time)","color":"\#D42A2A"},
-			$else	
-				{"full_text": "  [$battery_percent%] ","color":"\#D48D2A"},
- 			$endif 
-		$else 
-			{"full_text": "  [$battery_percent%] ","color":"\#54D42A"},
-		$endif
-	$else
-		{"full_text": "  AC only","color":"\#9C9C9C"},
 	$endif
 
-	{"full_text": " \uf001 ${exec current_volume} ", "color":"\#AB62F5"},
-	{"full_text": "  ${time %a %d %b} ${time %H:%M} ", "color":"\#9C9C9C"}
+    {"full_text": "  [$cpu%] ", "color": "\#D68931"},
+    {"full_text": "  [$membar] ", "color":"\#D68931"},
+
+	${if_existing /sys/class/power_supply/BAT0}
+		${if_match "$battery_percent" < "70"}
+			${if_match "$battery_percent" < "50"}
+				${if_match "$battery_percent" < "30"}
+					${if_match "$battery_percent" < "10"}
+						{"full_text": " \uf244 [$battery_percent%] ($battery_time)","color":"\#D42A2A"}, # < 10%
+					$else
+						{"full_text": " \uf243 [$battery_percent%] ","color":"\#D48D2A"}, # < 30%
+	 				$endif
+				$else
+					{"full_text": " \uf242 [$battery_percent%] ","color":"\#D48D2A"}, # < 50%
+				$endif
+			$else
+			{"full_text": " \uf241 [$battery_percent%] ","color":"\#D48D2A"}, # < 70%
+			$endif
+		$else
+		{"full_text": " \uf240 [$battery_percent%] ","color":"\#D48D2A"}, # < 100%
+		$endif
+	$endif
+
+	{"full_text": " \uf001 [${exec current_volume}] ", "color":"\#AB62F5"},
+	{"full_text": " \uf185 [${exec xbacklight -get | cut -d. -f1}] ", "color":"\#AB62F5"},
+	{"full_text": "   ${time %a %d %b} ${time %H:%M} ", "color":"\#9C9C9C"}
 	],
