@@ -26,6 +26,9 @@ new_window 1pixel
 # force i3 to us layout
 exec_always --no-startup-id "/usr/bin/setxkbmap us"
 
+# networkmanager
+exec_always --no-startup-id nm-applet
+
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # The font above is very space-efficient, that is, it looks good, sharp and
@@ -130,11 +133,18 @@ bindsym $mod+a focus parent
 #set $ws_test "10: test"
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
+set $ws_code "1:  "
+set $ws_www "2: "
+set $ws_term1 "3: "
+set $ws_term2 "4: "
+set $ws_rdp "5: "
+set $ws_test "10:  "
+
+bindsym $mod+1 workspace $ws_code
+bindsym $mod+2 workspace $ws_www
+bindsym $mod+3 workspace $ws_term1
+bindsym $mod+4 workspace $ws_term2
+bindsym $mod+5 workspace $ws_rdp
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
@@ -142,11 +152,11 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+1 move container to workspace $ws_code
+bindsym $mod+Shift+2 move container to workspace $ws_www
+bindsym $mod+Shift+3 move container to workspace $ws_term1
+bindsym $mod+Shift+4 move container to workspace $ws_term2
+bindsym $mod+Shift+5 move container to workspace $ws_rdp
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
@@ -164,25 +174,25 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+		# These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+		# Pressing left will shrink the window’s width.
+		# Pressing right will grow the window’s width.
+		# Pressing up will shrink the window’s height.
+		# Pressing down will grow the window’s height.
+		bindsym Left resize shrink width 10 px or 10 ppt
+		bindsym Down resize grow height 10 px or 10 ppt
+		bindsym Up resize shrink height 10 px or 10 ppt
+		bindsym Right resize grow width 10 px or 10 ppt
 
 	bindsym h resize shrink width 10px or 10ppt
 	bindsym j resize grow height 10px or 10ppt
 	bindsym k resize shrink height 10px or 10ppt
 	bindsym l resize grow width 10px or 10ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+		# back to normal: Enter or Escape
+		bindsym Return mode "default"
+		bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -190,46 +200,62 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+#	font pango:DejaVu Sans Mono 8, FontAwesome 10
+	font pango:Meslo LG S for Powerline Regular 8, FontAwesome 8
+	tray_output primary
+    strip_workspace_numbers yes
+    height 19
+	position top
+
 	colors {
 		# Whole color settings
 		background #000000
 		statusline #ffffff
 		separator  #666666
 
-		# Type             border  background font
+		# Type			 border  background font
 		focused_workspace  #008fff #007fff #ffffff
 		active_workspace   #333333 #5f676a #ffffff
 		inactive_workspace #333333 #003385 #cccccc
 		urgent_workspace   #aa0000 #aa0000 #ffffff
 	}
 
-	position top
-
-        #status_command i3status -c ~/.i3/i3status.conf
-        status_command ~/.config/i3/conky
+   #status_command i3status -c ~/.i3/i3status.conf
+   status_command ~/.config/i3/conky
 }
 
 exec --no-startup-id feh --bg-fill $HOME/Wallpaper/1440p-wallpapers-mobile-phones-277.jpg
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym s exec --no-startup-id i3exit lock && suspend, mode "default"
-    bindsym h exec --no-startup-id i3exit lock && hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+	bindsym l exec --no-startup-id i3exit lock, mode "default"
+	bindsym e exec --no-startup-id i3exit logout, mode "default"
+	bindsym s exec --no-startup-id i3exit lock && suspend, mode "default"
+	bindsym h exec --no-startup-id i3exit lock && hibernate, mode "default"
+	bindsym r exec --no-startup-id i3exit reboot, mode "default"
+	bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $mod+F12 mode "$mode_system"
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
+# Screen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# exlpicit window positioning
 for_window [title="^FreeRDP.*$"] floating disable, sticky disable, new_window-window 5pixel, border 1pixel, move to workspace $ws_rdp
+
+# i3gaps config
+for_window [class=".*"] border pixel 1
+gaps inner 10
+gaps outer 0
+
 
