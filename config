@@ -47,7 +47,7 @@ bindsym $mod+z exec lock
 exec --no-startup-id xautolock -time 10 -locker lock &
 
 # set background
-exec_always --no-startup-id "feh --bg-scale '/home/cedi/.config/i3/wallpaper/4k-Abstract-HD-Photo-Wallpapers.jpg'"
+exec_always --no-startup-id "feh --bg-scale '$HOME/.config/i3/wallpaper/aSPQKgD.jpg'"
 
 # kill focused window
 bindsym $mod+q kill
@@ -138,30 +138,30 @@ set $ws_www "2: "
 set $ws_term1 "3: "
 set $ws_term2 "4: "
 set $ws_rdp "5: "
-set $ws_test "10:  "
+set $ws_test "10:  "
 
-bindsym $mod+1 workspace $ws_code
+bindsym $mod+1 workspace $ws_term1
 bindsym $mod+2 workspace $ws_www
-bindsym $mod+3 workspace $ws_term1
+bindsym $mod+3 workspace $ws_code
 bindsym $mod+4 workspace $ws_term2
 bindsym $mod+5 workspace $ws_rdp
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+0 workspace $ws_test
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws_code
+bindsym $mod+Shift+1 move container to workspace $ws_term1
 bindsym $mod+Shift+2 move container to workspace $ws_www
-bindsym $mod+Shift+3 move container to workspace $ws_term1
+bindsym $mod+Shift+3 move container to workspace $ws_code
 bindsym $mod+Shift+4 move container to workspace $ws_term2
 bindsym $mod+Shift+5 move container to workspace $ws_rdp
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+0 move container to workspace $ws_test
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -204,7 +204,7 @@ bar {
 	font pango:Meslo LG S for Powerline Regular 8, FontAwesome 8
 	tray_output primary
     strip_workspace_numbers yes
-    height 19
+    # height 19
 	position top
 
 	colors {
@@ -254,8 +254,8 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightne
 for_window [title="^FreeRDP.*$"] floating disable, sticky disable, new_window-window 5pixel, border 1pixel, move to workspace $ws_rdp
 
 # i3gaps config
-for_window [class=".*"] border pixel 1
-gaps inner 10
-gaps outer 0
+#for_window [class=".*"] border pixel 1
+#gaps inner 10
+#gaps outer 0
 
 
