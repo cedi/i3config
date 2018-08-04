@@ -68,6 +68,8 @@
 		$endif
 	$endif
 
+	{"full_text": " Temp: ${exec sensors | grep "Package id 0" | awk '{print $4}'}", "color":"\#D68931"},
+
 	{"full_text": " \uf001 [${exec current_volume}] ", "color":"\#AB62F5"},
 	{"full_text": " \uf185 [${exec xbacklight -get | cut -d. -f1}] ", "color":"\#AB62F5"},
 	{"full_text": "   ${time %a %d %b} ${time %H:%M} ", "color":"\#9C9C9C"}
