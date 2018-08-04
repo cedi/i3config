@@ -139,9 +139,9 @@ set $ws_term2 "4: "
 set $ws_rdp "5: "
 set $ws_test "10:  "
 
-bindsym $mod+1 workspace $ws_term1
+bindsym $mod+1 workspace $ws_code
 bindsym $mod+2 workspace $ws_www
-bindsym $mod+3 workspace $ws_code
+bindsym $mod+3 workspace $ws_term1
 bindsym $mod+4 workspace $ws_term2
 bindsym $mod+5 workspace $ws_rdp
 bindsym $mod+6 workspace 6
@@ -151,9 +151,9 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace $ws_test
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws_term1
+bindsym $mod+Shift+1 move container to workspace $ws_code
 bindsym $mod+Shift+2 move container to workspace $ws_www
-bindsym $mod+Shift+3 move container to workspace $ws_code
+bindsym $mod+Shift+3 move container to workspace $ws_term1
 bindsym $mod+Shift+4 move container to workspace $ws_term2
 bindsym $mod+Shift+5 move container to workspace $ws_rdp
 bindsym $mod+Shift+6 move container to workspace 6
