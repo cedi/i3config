@@ -93,7 +93,7 @@ else #black
 fi
 
 convert "$IMAGE" "${HUE[@]}" "${EFFECT[@]}" -font "$FONT" -pointsize 26 -fill "$BW" -gravity center \
-    -annotate +0+160 "$TEXT" "$ICON" -gravity center -composite "$IMAGE"
+    -annotate +0+160 "$TEXT" "$IMAGE"
 
 # If invoked with -d/--desktop, we'll attempt to minimize all windows (ie. show
 # the desktop) before locking.
@@ -108,3 +108,4 @@ fi
 # As above, if we were passed -d/--desktop, we'll attempt to restore all windows
 # after unlocking.
 ${DESKTOP} ${DESKTOP:+-k off}
+
