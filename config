@@ -23,6 +23,10 @@ font pango:DejaVu Sans Mono 8
 # per default hide the crappy title bars
 new_window 1pixel
 
+# use gnome-session
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
+exec_always --no-startup-id gnome-power-manager
+
 # force i3 to us layout
 exec_always --no-startup-id "/usr/bin/setxkbmap us"
 
