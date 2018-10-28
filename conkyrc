@@ -65,8 +65,6 @@
 			$endif
 		$else
 		{"full_text": " \uf240 [$battery_percent%] ($battery_time) ","color":"\#D48D2A"}, # < 100%
-
-
 		$endif
 	$endif
 
