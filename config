@@ -168,6 +168,10 @@ exec_always --no-startup-id "/usr/bin/nm-applet"
 # set lock
 exec_always --no-startup-id "xautolock -time 10 -locker 'i3lock -c 0f0f0f ' &"
 
+# start autorandr
+exec_always --no-startup-id "autorandr &"
+
+
 ################################33
 # modes
 
